@@ -1,4 +1,18 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
+import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 
 @Controller('api/v1/jogadores')
-export class JogadoresController {}
+export class JogadoresController {
+
+  @Post()
+  async criarAtualizarJogador(
+    @Body() criarJogadorDto: CriarJogadorDto
+  ) {
+    const { nome, email, telefoneCelular } = criarJogadorDto
+    return JSON.stringify({
+      "nome": nome,
+      "email": email,
+      "telefoneCelular": telefoneCelular,
+    })
+  }
+}

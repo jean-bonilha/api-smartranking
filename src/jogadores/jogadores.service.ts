@@ -14,10 +14,10 @@ export class JogadoresService {
 
     const { email } = criarJogadorDto
 
-    const jogadorEncontrado = await this.jogadores.find(jogador => jogador.email === email)
+    const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email)
 
     if (jogadorEncontrado) {
-      await this.atualizar(jogadorEncontrado, criarJogadorDto)
+      this.atualizar(jogadorEncontrado, criarJogadorDto)
     } else {
       this.criar(criarJogadorDto)
     }
@@ -25,11 +25,11 @@ export class JogadoresService {
   }
 
   async consultarTodosJogadores(): Promise<Jogador[]> {
-    return await this.jogadores
+    return this.jogadores
   }
 
   async consultarJogadorPeloEmail(email:string): Promise<Jogador[]> {
-    const jogadorEncontrado = await this.jogadores.find(jogador => jogador.email === email)
+    const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email)
 
     if (!jogadorEncontrado) {
       throw new NotFoundException(`Jogador com email ${email} não encontrado!`)
@@ -40,7 +40,7 @@ export class JogadoresService {
 
   async deletarJogador(email): Promise<void> {
 
-    const jogadorEncontrado = await this.jogadores.find(jogador => jogador.email === email)
+    const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email)
 
     this.jogadores = this.jogadores.filter(jogador => jogador.email !== email)
 
